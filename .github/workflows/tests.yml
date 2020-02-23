@@ -1,4 +1,4 @@
-name: test workflow
+name: unit test & functional tests workflow
 on: [push]
 
 jobs:

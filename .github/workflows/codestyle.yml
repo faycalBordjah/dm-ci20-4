@@ -1,4 +1,4 @@
-name: code style workflow
+name: code-style & security checks
 on: [push]
 
 jobs: 
