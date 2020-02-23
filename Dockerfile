@@ -8,7 +8,8 @@ RUN composer install --ignore-platform-reqs --no-ansi --no-interaction --prefer-
 FROM php:7.4.2-fpm-alpine3.11 as php
 
 ENV APP_ENV=prod
-RUN apk add --no-cache acl=2.2.52-3
+RUN apk add --no-cache \
+ acl=2.2.53-r0
 
 COPY ./ /srv/api
 COPY --from=vendors /app/vendor /srv/api/vendor
