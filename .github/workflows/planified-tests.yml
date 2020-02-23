@@ -1,0 +1,17 @@
+name: planified integration tests
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * * ' # Once per day 
+
+jobs:
+  test-int-planified:                                                                                         
+    name: Test integration every 7 days                                                                   
+    runs-on: ubuntu-latest                                                                       
+    steps:
+      - name: copy resources
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: composer install 
+      - name: launch integration test 
+        run:  bin/phpunit tests/Integration
