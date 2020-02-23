@@ -1,0 +1,14 @@
+name: code style web hook
+on: [push]
+
+jobs: 
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: copy resources
+        uses: actions/checkout@v2
+      - name: install docker
+        run: curl -sSL https://get.docker.com | sh
+      - name: launch Hadolint 
+        run: docker run --rm -i hadolint/hadolint < Dockerfile
+
