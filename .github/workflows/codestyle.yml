@@ -3,6 +3,7 @@ on: [push]
 
 jobs: 
   hadolint:
+    name: Dockerfiles linter 
     runs-on: ubuntu-latest
     steps:
       - name: copy resources
@@ -11,4 +12,18 @@ jobs:
         run: curl -sSL https://get.docker.com | sh
       - name: launch Hadolint 
         run: docker run --rm -i hadolint/hadolint < Dockerfile
+
+  phpcsfixer:
+    name: php cs fixer job 
+    runs-on: ubuntu-latest
+    steps:
+      - name: copy resources
+        uses: actions/checkout@v2
+      - name: install php cs fixer 
+        run: |
+          curl -L https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer 
+          sudo chmod a+x php-cs-fixer
+          sudo mv php-cs-fixer /usr/local/bin/php-cs-fixer
+      - name: validate code source 
+        run: php-cs-fixer fix --dry-run src
 
