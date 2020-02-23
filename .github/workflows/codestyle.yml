@@ -1,4 +1,4 @@
-name: code style web hook
+name: code style workflow
 on: [push]
 
 jobs: 
@@ -26,4 +26,16 @@ jobs:
           sudo mv php-cs-fixer /usr/local/bin/php-cs-fixer
       - name: validate code source 
         run: php-cs-fixer fix --dry-run src
-
+  
+  security-checker:
+    name: check security 
+    runs-on: ubuntu-latest
+    steps:
+      - name:
+        uses: actions/checkout@v2
+      - name: install sensiolabs security checker
+        run: |
+          curl -L https://get.sensiolabs.org/security-checker.phar -o security-checker
+          sudo chmod a+x security-checker
+      - name: launch security checker
+        run: php security-checker security:check symfony.lock
