@@ -1,0 +1,19 @@
+name: integration tests
+on:
+  push:
+  schedule:
+    - cron: '*/1 * * * *' # Once per day 
+
+jobs:
+  test-int:                                                                                         
+    name: Test integration                                                                   
+    runs-on: ubuntu-latest                                                                       
+    steps:
+      - name: copy resources
+        uses: actions/checkout@v2
+        with:
+          ref: development-ci-branch-improvment
+      - name: install dependencies
+        run: composer install 
+      - name: launch integration test 
+        run:  bin/phpunit tests/Integration

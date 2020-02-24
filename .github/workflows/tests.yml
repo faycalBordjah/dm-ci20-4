@@ -1,0 +1,51 @@
+name: unit test & functional tests workflow
+on: [push]
+
+jobs:
+  build:
+    name: install dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy resources
+        uses: actions/checkout@v2
+      - name: use cache vendors
+        id: cache-vendor
+        uses: actions/cache@v1
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      - name: composer install dependencies
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
+        run: composer install --no-progress --no-scripts
+
+  test_unit:
+    name: php unit tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Cache vendors
+        id: cache-vendor
+        uses: actions/cache@v1
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      - name: launch the unit tests
+        run: bin/phpunit tests/Unit
+
+  test_functional:
+    name: functionnal tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Cache vendors
+        id: cache-vendor
+        uses: actions/cache@v1
+        with:
+          path: vendor/
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      - name: launch the functionnal tests 
+        run: php vendor/bin/behat        
