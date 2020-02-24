@@ -4,6 +4,8 @@
 
 ![planified integration tests](https://github.com/faycalBordjah/dm-ci20-4/workflows/planified%20integration%20tests/badge.svg)
 
+![publish docker images](https://github.com/tolstoyfafa/dm-ci20-4/workflows/publish%20docker%20images/badge.svg)
+
 # Start Wars API Bind
 
 Star wars api bind planet is an API done with Symfony framework. It allows you to connect to [SWAP API](https://swapi.co/) to illustrate how to use tests.
