@@ -1,16 +1,18 @@
-name: planified integration tests
+name: integration tests
 on:
   push:
   schedule:
-    - cron: '0 0 * * * ' # Once per day 
+    - cron: '*/1 * * * *' # Once per day 
 
 jobs:
-  test-int-planified:                                                                                         
-    name: Test integration every 7 days                                                                   
+  test-int:                                                                                         
+    name: Test integration                                                                   
     runs-on: ubuntu-latest                                                                       
     steps:
       - name: copy resources
         uses: actions/checkout@v2
+        with:
+          ref: development-ci-branch-improvment
       - name: install dependencies
         run: composer install 
       - name: launch integration test 
