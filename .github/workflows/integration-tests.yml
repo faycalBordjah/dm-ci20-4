@@ -2,7 +2,7 @@ name: integration tests
 on:
   push:
   schedule:
-    - cron: '*/1 * * * *' # Once per day 
+    - cron: '0 1 * * *' # Once per day 
 
 jobs:
   test-int:                                                                                         
@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: copy resources
         uses: actions/checkout@v2
-        with:
-          ref: development-ci-branch-improvment
       - name: install dependencies
         run: composer install 
       - name: launch integration test 
